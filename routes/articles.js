@@ -10,4 +10,15 @@ router.get('/', (req, res) => {
     })
 })
 
+router.post('/article', (req,res) => {
+    const db =req.app.get('db')
+    const title = req.body.title
+    const body = req.body.body
+    const author = req.body.author
+    db.query('insert into articles(??,??,??)',[title,body,author], (err) => {
+        if(err) console.log('408')
+        res('200')
+    })
+})
+
 module.exports = router
