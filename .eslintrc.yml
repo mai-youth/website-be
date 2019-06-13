@@ -29,3 +29,5 @@ rules:
     - error
   key-spacing:
     - error
+  eol-last:
+    - error
