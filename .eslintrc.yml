@@ -23,3 +23,5 @@ rules:
     - never
   no-console:
     - off
+  eol-last:
+    - error
