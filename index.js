@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const mysql = require('mysql')
 
 const contactRouter = require('./routes/contact')
@@ -23,6 +24,7 @@ conn.connect((err) => {
     const app = express()
 
     app.use(cors())
+    app.use(bodyParser.json())
     app.use('/contact', contactRouter)
     app.use('/articles', articlesRouter)
     app.set('db', conn)
