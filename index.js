@@ -10,12 +10,12 @@ const conn = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database : 'website_be',
+    database: 'website_be',
 })
 
 conn.connect((err) => {
     if (err) {
-        console.log('ERR: Could not connect to DB.')
+        console.log('ERR: Could not connect to DB. ' + err)
         return
     }
     console.log('Connnected to DB!')
