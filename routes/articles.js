@@ -18,7 +18,7 @@ router.post('/article', (req,res) => {
     
     db.query('INSERT INTO articles(title,body,author) VALUES(?,?,?)',[title,body,author], (err) => {
         if(err) console.log(err)
-        else res.send({status: 'sucess'})
+        else res.status(200)
         res.end() 
     })
 })
