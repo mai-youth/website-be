@@ -10,6 +10,19 @@ router.get('/', (req, res) => {
     })
 })
 
+
+router.post('/article', (req,res) => {
+    const db = req.app.get('db')
+    const title  = req.body.title
+    const body = req.body.body
+    const author = req.body.author
+    
+    db.query('INSERT INTO articles(title,body,author) VALUES(?,?,?)',[title,body,author], (err) => {
+        if(err) console.log(err)
+        res.end() 
+    })
+})
+
 router.get('/article/:id', (req, res) => {
     const db = req.app.get('db')
     const sql = mysql.format('SELECT * FROM articles WHERE id = ?', [req.params.id])
