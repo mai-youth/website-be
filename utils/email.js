@@ -27,7 +27,6 @@ function sendText(to, subject, text, replyTo) {
 }
 
 module.exports = {
-    transporter,
     sendText,
     origin,
 }
