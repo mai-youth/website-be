@@ -10,19 +10,6 @@ router.get('/', (req, res) => {
     })
 })
 
-
-router.post('/article', (req,res) => {
-    const db = req.app.get('db')
-    const title  = req.body.title
-    const body = req.body.body
-    const author = req.body.author
-    
-    db.query('INSERT INTO articles(title,body,author) VALUES(?,?,?)',[title,body,author], (err) => {
-        if(err) console.log(err)
-        res.end() 
-    })
-})
-
 router.get('/article/:id', (req, res) => {
     const db = req.app.get('db')
     const sql = mysql.format('SELECT * FROM articles WHERE id = ?', [req.params.id])
@@ -34,6 +21,24 @@ router.get('/article/:id', (req, res) => {
         } else {
             res.json(results[0])
         }
+    })
+})
+
+router.post('/article', (req, res) => {
+    const db = req.app.get('db')
+    const { title, body, author } = req.body
+
+    db.query('INSERT INTO articles (title,body,author) VALUES(?, ?, ?)', [title, body, author], (err) => {
+        if (err) throw err
+        res.end()
+    })
+})
+
+router.delete('/article/:id', (req, res) => {
+    const db = req.app.get('db')
+    db.query('DELETE FROM articles WHERE id = ?', [req.params.id], (error) => {
+        if (error) throw error
+        res.end()
     })
 })
 
