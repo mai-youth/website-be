@@ -34,4 +34,12 @@ router.post('/article', (req, res) => {
     })
 })
 
+router.delete('/article/:id', (req, res) => {
+    const db = req.app.get('db')
+    db.query('DELETE FROM articles WHERE id = ?', [req.params.id], (error) => {
+        if (error) throw error
+        res.end()
+    })
+})
+
 module.exports = router
