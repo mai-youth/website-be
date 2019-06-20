@@ -23,3 +23,11 @@ rules:
     - never
   no-console:
     - off
+  comma-spacing:
+    - error
+  space-infix-ops:
+    - error
+  key-spacing:
+    - error
+  eol-last:
+    - error
