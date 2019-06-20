@@ -35,10 +35,6 @@ router.get('/article/:id', (req, res) => {
         } else {
             res.json(results[0])
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 5db2d4eb1857cc9385c1f6793aac67a7adcf6c2d
     })
 })
 
