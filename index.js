@@ -6,7 +6,7 @@ const mysql = require('mysql')
 const contactRouter = require('./routes/contact')
 const articlesRouter = require('./routes/articles')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 const conn = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

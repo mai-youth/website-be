@@ -12,8 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/article/:id', (req, res) => {
     const db = req.app.get('db')
-    const sql = mysql.format('SELECT * FROM articles WHERE id = ?', [req.params.id])
-    db.query(sql, (error, results) => {
+    db.query('SELECT * FROM articles WHERE id = ?', [req.params.id], (error, results) => {
         if (error) throw error
         if (results.length === 0) {
             res.status(404)
@@ -24,13 +23,14 @@ router.get('/article/:id', (req, res) => {
     })
 })
 
-router.post('/article', (req, res) => {
+router.put('/article', (req, res) => {
     const db = req.app.get('db')
     const { title, body, author } = req.body
 
-    db.query('INSERT INTO articles (title,body,author) VALUES(?, ?, ?)', [title, body, author], (err) => {
+    db.query('INSERT INTO articles (title, body, author) VALUES (?, ?, ?)', [title, body, author], (err, result) => {
         if (err) throw err
-        res.end()
+        console.log(result.insertedId, result)
+        res.json({ insertId: result.insertId })
     })
 })
 
