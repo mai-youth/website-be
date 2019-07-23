@@ -1,5 +1,4 @@
 const express = require('express')
-const mysql = require('mysql')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -29,8 +28,30 @@ router.put('/article', (req, res) => {
 
     db.query('INSERT INTO articles (title, body, author) VALUES (?, ?, ?)', [title, body, author], (err, result) => {
         if (err) throw err
-        console.log(result.insertedId, result)
         res.json({ insertId: result.insertId })
+    })
+})
+
+router.post('/article/:id', (req, res) => {
+    const db = req.app.get('db')
+    const { id } = req.params
+    db.query('SELECT * FROM articles WHERE id = ?', [id], (error, results) => {
+        if (error) throw error
+        if (results.length === 0) {
+            res.status(404)
+            res.end()
+        } else {
+            const { title, body, author } = results[0]
+            const { newTitle, newBody, newAuthor } = req.body
+            db.query(
+                'UPDATE articles SET title = ?, body = ?, author = ? WHERE id = ?'
+                , [newTitle || title, newBody || body, newAuthor || author, id]
+                , (error) => {
+                    if (error) throw error
+                    res.end()
+                }
+            )
+        }
     })
 })
 
