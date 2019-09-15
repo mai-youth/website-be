@@ -11,7 +11,7 @@ const conn = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'website_be',
+    database: process.env.DB_NAME,
 })
 
 conn.connect((err) => {
@@ -29,7 +29,7 @@ conn.connect((err) => {
     app.use('/articles', articlesRouter)
     app.set('db', conn)
 
-    app.get('/', (req, res) => res.send('Hello Jeff!'))
+    app.get('/', (req, res) => res.send('Not Found'))
 
     app.listen(port, () => console.log(`App listening on port ${port}!`))
 })
