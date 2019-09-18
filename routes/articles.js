@@ -29,7 +29,7 @@ router.put('/article', (req, res) => {
     const db = req.app.get('db')
     const { title, body, author, color } = req.body
 
-    db.query('INSERT INTO articles (title, body, author, color) VALUES (?, ?, ?)', [title, body, author, color], (err, result) => {
+    db.query('INSERT INTO articles (title, body, author, color) VALUES (?, ?, ?, ?)', [title, body, author, color], (err, result) => {
         if (err) throw err
         res.json({ insertId: result.insertId })
     })
