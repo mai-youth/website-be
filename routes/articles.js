@@ -69,7 +69,7 @@ router.delete('/article/:id', (req, res) => {
 })
 
 // Increment article view count
-router.post('/article/:id/viewed', (req, res) => {
+router.post('/article/:id/seen', (req, res) => {
     const db = req.app.get('db')
     const { id } = req.params
     db.query('UPDATE articles SET views = views + 1 WHERE id = ?', [id], (error) => {
