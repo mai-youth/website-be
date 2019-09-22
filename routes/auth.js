@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { generateToken } = require('../utils/token')
 
-router.post('/authenticate', (req, res) => {
+router.post('/', (req, res) => {
     const { passPhrase } = req.body
 
     if (passPhrase !== process.env.PASS_PHRASE) {
