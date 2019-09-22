@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET
 
-function generateToken(minsToLive) {
+function generateToken(minsToLive = 15) {
     return jwt.sign({
         // We can add more params here. So far we only need a token that expires eventually
         exp: Math.floor(new Date().getTime() / 1000) + minsToLive * 60,

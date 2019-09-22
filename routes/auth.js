@@ -9,7 +9,7 @@ router.post('/authenticate', (req, res) => {
         return res.status(401).end()
     }
 
-    res.json({ token: generateToken(15) })
+    res.json({ token: generateToken() })
 })
 
 module.exports = router
