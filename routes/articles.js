@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { requireAuth } = require('../utils/token')
 
 router.get('/', (req, res) => {
     const db = req.app.get('db')
@@ -61,6 +62,12 @@ router.delete('/article/:id', (req, res) => {
         if (error) throw error
         res.end()
     })
+})
+
+// Sample test endpoint for now
+// We need to enable authentication on the FE before requiring it on the BE.
+router.get('/protected', requireAuth, (req, res) => {
+    res.send('You\'re in!')
 })
 
 module.exports = router

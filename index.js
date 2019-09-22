@@ -5,6 +5,7 @@ const mysql = require('mysql')
 
 const contactRouter = require('./routes/contact')
 const articlesRouter = require('./routes/articles')
+const authRouter = require('./routes/auth')
 
 const port = process.env.PORT || 5000
 const conn = mysql.createConnection({
@@ -27,6 +28,7 @@ conn.connect((err) => {
     app.use(bodyParser.json())
     app.use('/contact', contactRouter)
     app.use('/articles', articlesRouter)
+    app.use('/auth', authRouter)
     app.set('db', conn)
 
     app.get('/', (req, res) => res.send('Not Found'))
