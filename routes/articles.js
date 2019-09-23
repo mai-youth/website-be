@@ -23,7 +23,7 @@ router.get('/article/:id', (req, res) => {
     })
 })
 
-router.put('/article', (req, res) => {
+router.put('/article', requireAuth, (req, res) => {
     const db = req.app.get('db')
     const { title, body, author } = req.body
 
@@ -33,7 +33,7 @@ router.put('/article', (req, res) => {
     })
 })
 
-router.post('/article/:id', (req, res) => {
+router.post('/article/:id', requireAuth, (req, res) => {
     const db = req.app.get('db')
     const { id } = req.params
     db.query('SELECT * FROM articles WHERE id = ?', [id], (error, results) => {
@@ -56,7 +56,7 @@ router.post('/article/:id', (req, res) => {
     })
 })
 
-router.delete('/article/:id', (req, res) => {
+router.delete('/article/:id', requireAuth, (req, res) => {
     const db = req.app.get('db')
     db.query('DELETE FROM articles WHERE id = ?', [req.params.id], (error) => {
         if (error) throw error
