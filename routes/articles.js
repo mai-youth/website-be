@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { requireAuth } = require('../utils/token')
 
 // Get all articles
 router.get('/', (req, res) => {
@@ -25,7 +26,7 @@ router.get('/article/:id', (req, res) => {
 })
 
 // Add new article
-router.put('/article', (req, res) => {
+router.put('/article', requireAuth, (req, res) => {
     const db = req.app.get('db')
     const { title, body, author, color } = req.body
 
@@ -36,7 +37,7 @@ router.put('/article', (req, res) => {
 })
 
 // Edit article
-router.post('/article/:id', (req, res) => {
+router.post('/article/:id', requireAuth, (req, res) => {
     const db = req.app.get('db')
     const { id } = req.params
     db.query('SELECT * FROM articles WHERE id = ?', [id], (error, results) => {
@@ -60,7 +61,7 @@ router.post('/article/:id', (req, res) => {
 })
 
 // Delete article
-router.delete('/article/:id', (req, res) => {
+router.delete('/article/:id', requireAuth, (req, res) => {
     const db = req.app.get('db')
     db.query('DELETE FROM articles WHERE id = ?', [req.params.id], (error) => {
         if (error) throw error
