@@ -8,12 +8,16 @@ const articlesRouter = require('./routes/articles')
 const authRouter = require('./routes/auth')
 
 const port = process.env.PORT || 5000
-const conn = mysql.createConnection({
+const mysqlOptions = process.env.CLEARDB_DATABASE_URL ? process.env.CLEARDB_DATABASE_URL : {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-})
+}
+
+console.log(mysqlOptions)
+
+const conn = mysql.createConnection(mysqlOptions)
 
 conn.connect((err) => {
     if (err) {
