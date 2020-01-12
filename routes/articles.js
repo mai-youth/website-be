@@ -46,11 +46,12 @@ router.post('/article/:id', requireAuth, (req, res) => {
             res.status(404)
             res.end()
         } else {
-            const { title, body, author, color } = results[0]
-            const { newTitle, newBody, newAuthor, newColor } = req.body
+            const { title, body, author, color, published } = results[0]
+            const { newTitle, newBody, newAuthor, newColor, newPublished } = req.body
+            const publishedVal = newPublished === 1 || newPublished === 0 ? newPublished : published
             db.query(
-                'UPDATE articles SET title = ?, body = ?, author = ?, color = ? WHERE id = ?'
-                , [newTitle || title, newBody || body, newAuthor || author, newColor || color, id]
+                'UPDATE articles SET title = ?, body = ?, author = ?, color = ?, published = ? WHERE id = ?'
+                , [newTitle || title, newBody || body, newAuthor || author, newColor || color, publishedVal, id]
                 , (error) => {
                     if (error) throw error
                     res.end()
@@ -87,24 +88,6 @@ router.post('/article/:id/liked', (req, res) => {
         if (error) throw error
         res.json()
     })
-})
-
-router.post('articles/:id/publish', (req, res) => {
-    const db = req.app.get('db')
-    const { id } = req.params
-    db.query('UPDATE articles SET isPublished = 1 WHERE id = ?', [id], (error => {
-        if(error) throw error
-        res.json()
-    }))
-})
-
-router.post('articles/:id/unpublish', (req, res) => {
-    const db = req.app.get('db')
-    const { id } = req.params
-    db.query('UPDATE articles SET isPublished = 0 WHERE id = ?', [id], (error => {
-        if(error) throw error
-        res.json()
-    }))
 })
 
 module.exports = router

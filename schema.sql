@@ -6,7 +6,8 @@ CREATE TABLE articles (
     likes       INT DEFAULT 0,
     views       INT DEFAULT 0,
     color       VARCHAR(20) DEFAULT "#5e9de6",
-    createdAt   TIMESTAMP DEFAULT NOW(), 
+    published   SMALLINT DEFAULT 0,
+    createdAt   TIMESTAMP DEFAULT NOW(),
     updatedAt   TIMESTAMP DEFAULT NOW() ON UPDATE NOW(),
     PRIMARY KEY (id)
 );
