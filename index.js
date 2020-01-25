@@ -15,17 +15,9 @@ const mysqlOptions = process.env.CLEARDB_DATABASE_URL ? process.env.CLEARDB_DATA
     database: process.env.DB_NAME,
 }
 
-console.log(mysqlOptions)
-
-const conn = mysql.createConnection(mysqlOptions)
-
-conn.connect((err) => {
-    if (err) {
-        console.log('ERR: Could not connect to DB. ' + err)
-        return
-    }
-    console.log('Connnected to DB!')
-
+function start() {
+    // Creating a pool ensures the connection to the database is never lost
+    const conn = mysql.createPool(mysqlOptions)
     const app = express()
 
     app.use(cors())
@@ -35,7 +27,9 @@ conn.connect((err) => {
     app.use('/auth', authRouter)
     app.set('db', conn)
 
-    app.get('/', (req, res) => res.send('Not Found'))
+    app.get('/', (req, res) => res.send('Not Found'))    
 
     app.listen(port, () => console.log(`App listening on port ${port}!`))
-})
+}
+
+start()
