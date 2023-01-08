@@ -30,7 +30,22 @@ router.put('/article', requireAuth, (req, res) => {
     const db = req.app.get('db')
     const { title, body, author, color, isPublished } = req.body
 
-    db.query('INSERT INTO articles (title, body, author, color, isPublished) VALUES (?, ?, ?, ?, ?)', [title, body, author, color, isPublished], (err, result) => {
+    if (!title) {
+        return res.status(400).end()
+    }
+
+    // Setting default values here.
+    // Letting them get set in the DB doesn't always work as "NULL"
+    //   is inserted or the insertion fails completely.
+    const values = [
+        title,
+        body        || '',
+        author      || 'MAI Youth Team',
+        color       || '#5e9de6',
+        isPublished || 0,
+    ]
+
+    db.query('INSERT INTO articles (title, body, author, color, published) VALUES (?, ?, ?, ?, ?)', values, (err, result) => {
         if (err) throw err
         res.json({ insertId: result.insertId })
     })

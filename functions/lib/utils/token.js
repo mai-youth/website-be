@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const SECRET = process.env.SECRET
+const { SECRET } = require('../constants/env_vairables')
 
 function generateToken(minsToLive = 15) {
     return jwt.sign({

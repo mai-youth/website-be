@@ -1,0 +1,35 @@
+{
+  "name": "website-be",
+  "description": "Backend for the MAI Youth website",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "local": "nodemon local.js",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.17.1",
+    "nodemailer": "^6.2.1",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
